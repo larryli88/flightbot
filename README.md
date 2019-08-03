@@ -9,6 +9,7 @@ You will need to install rasa nlu and amadeus(flight search API).
 * rasa-nlu                  0.15.1
 * rasa-sdk                  1.1.0
 * amadeus                   3.1.0
+
 You can install them with pip
 ```
 pip install rasa
