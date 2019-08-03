@@ -4,7 +4,7 @@ AI chat bot using Rasa NLU.
 ## Getting Started
 
 ### Prerequisites
-You will need to install rasa nlu and amadeus(flight search API).
+The program is written in Python 3.7. You will need to install rasa nlu and amadeus(flight search API).
 * rasa                      1.1.7
 * rasa-nlu                  0.15.1
 * rasa-sdk                  1.1.0

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import nluchat
-from nluchat import startNLU
+from nluchat import send_message
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
@@ -24,7 +24,7 @@ def help(bot, update):
 def respond(bot, update):
     """respond the user message."""
     # Initialize params dictionary
-    response, nluchat.params_global = respond(update.message.text, nluchat.params_global)
+    nluchat.state_global, nluchat.params_global, response = send_message(update.message.text, nluchat.state_global, nluchat.params_global)
     update.message.reply_text(response)
 
 def error(bot, update, error):
