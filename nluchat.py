@@ -8,6 +8,7 @@ import time
 import re
 
 from amadeusApi import checkinLinks
+from amadeusApi import flightOffers
 
 # define states
 INIT = 0
@@ -15,7 +16,10 @@ CHOOSE_ORG = 1
 CHOOSE_DEST = 2
 CHECKIN_LINK = 3
 CHECKIN_LINK_CHOOSE = 4
-FLIGHT_FROM_LOC = 5
+FLIGHT_OFFER = 5
+FLIGHT_OFFER_ORG = 6
+FLIGHT_OFFER_DEST = 7
+FLIGHT_OFFER_DEP_DATE = 8
 
 # global params
 params_global = {}
@@ -44,15 +48,59 @@ def getCheckin(params, msg, state):
     # the search is completed, reset state and params
     return CHECKIN_LINK_CHOOSE, {}, response
 
+def setFlightOrg(params, msg, state):
+    matchObj = re.search(r'\b[A-Z]{3}\b', msg)
+    if not matchObj:
+        return CHECKIN_LINK_CHOOSE, {}, "Sorry, this is an invalid IATA airport code, please try again"
+    else:
+        params['fromloc_iata'] = matchObj.group()
+    return getFlight(params, msg, state)
+
+def setFlightDest(params, msg, state):
+    matchObj = re.search(r'\b[A-Z]{3}\b', msg)
+    if not matchObj:
+        return CHECKIN_LINK_CHOOSE, {}, "Sorry, this is an invalid IATA airport code, please try again"
+    else:
+        params['toloc_iata'] = matchObj.group()
+    return getFlight(params, msg, state)
+
+def setFlightDep(params, msg, state):
+    params['depart_date'] = params['time'][:10]
+    return getFlight(params, msg, state)
+
 def getFlight(params, msg, state):
-    if params.get('class_type') == None:
+    # set the class type
+    if "premium economy" in msg:
+        params['class_type'] = "PREMIUM_ECONOMY"
+    elif "business" in msg:
+        params['class_type'] = "BUSINESS"
+    elif "first class" in msg:
+        params['class_type'] = "FIRST"
+    else:
         params['class_type'] = "ECONOMY"
+    # get org iata
     if params.get('fromloc.iata') == None:
         response = "Ok, where are you flying from?"
-        return FLIGHT_FROM_LOC, params, response
+        return FLIGHT_OFFER_ORG, params, response
+    # get dest iata
     if params.get('toloc.iata') == None:
         response = "Where are you flying to?"
-        return FLIGHT_TO_LOC, params, response
+        return FLIGHT_OFFER_DEST, params, response
+    # non stop?
+    if params.get('flight_stop') == None or params['flight_stop'] != "nonstop":
+        params['flight_stop'] = False
+    else:
+        params['flight_stop'] = True
+    # time?
+    if params.get('depart_date') == None and params.get('time') == None:
+        response = "Ok, when are you flying?"
+        return FLIGHT_OFFER_DEP_DATE, params, response
+    else:
+        params['depart_date'] = params['time'][:10]
+    print(params)
+    return FLIGHT_OFFER, {}, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'])
+    # default is no return flight
+
     
 
 def backToInit(params, msg, state):
@@ -66,7 +114,12 @@ policy = {
     (INIT, "flight"): getFlight,
     (CHECKIN_LINK, "default"): getCheckin,
     (CHECKIN_LINK_CHOOSE, "decline"): backToInit,
-    (CHECKIN_LINK_CHOOSE, "default"): setCheckinAir
+    (CHECKIN_LINK_CHOOSE, "default"): setCheckinAir,
+    (FLIGHT_OFFER, "default"): getFlight,
+    (FLIGHT_OFFER_ORG, "default"): setFlightOrg,
+    (FLIGHT_OFFER_DEST, "default"): setFlightDest,
+    (FLIGHT_OFFER_DEP_DATE, "default"): setFlightDep,
+    (FLIGHT_OFFER, "decline"): backToInit
 }
 
 
@@ -91,7 +144,7 @@ def send_message(message, state, params):
     return new_state, params, response
 
 # load the trained model
-interpreter = Interpreter.load('./model/default/model_20190804-003240')
+interpreter = Interpreter.load('./model/default/model_20190805-111626')
 
 """
 # Debug

@@ -1,5 +1,6 @@
 import amadeus
 import re
+import json
 from amadeus import Client
 
 amadeus = Client(
@@ -14,10 +15,14 @@ def checkinLinks(code):
     else:
         return "the check in link is {}\n Any other airline's check in website do you want?".format(response.data[0]['href'])
 
-def flightOffers(org, dest, departDate, nonStop):
+def flightOffers(org, dest, departDate, flightStop):
     response = amadeus.shopping.flight_offers.get(
                     origin=org,
                     destination=dest,
-                    departureDate='2019-08-05'
+                    departureDate=departDate,
+                    nonStop=flightStop
                 )
-    
+    if not response.data:
+        return "Sorry, this is an invalid IATA airline code, please try again"
+    else:
+        return json.dumps(response.data)
