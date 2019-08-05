@@ -30,13 +30,13 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
         for idx, ticket in enumerate(offers):
             response += ("ticket:" + str(idx + 1))
             for i, segment in enumerate(ticket['offerItems'][0]['services'][0]['segments']):
-                response = response + "segment:" + str(i + 1)
-                response += ("departure: " + segment['flightSegment']['departure']['iataCode'] + " at " + segment['flightSegment']['departure']['at'])
-                response += ("arrival: " + segment['flightSegment']['arrival']['iataCode'] + " at " + segment['flightSegment']['arrival']['at'])
-                response += (segment['flightSegment']['carrierCode'] + segment['flightSegment']['number'])
-                response += ("Aircraft: " + segment['flightSegment']['aircraft']['code'])
+                response = response + "\nsegment:" + str(i + 1)
+                response += ("\ndeparture: " + segment['flightSegment']['departure']['iataCode'] + " at " + segment['flightSegment']['departure']['at'])
+                response += ("\narrival: " + segment['flightSegment']['arrival']['iataCode'] + " at " + segment['flightSegment']['arrival']['at'])
+                response += ("\n" + segment['flightSegment']['carrierCode'] + segment['flightSegment']['number'])
+                response += ("\nAircraft: " + segment['flightSegment']['aircraft']['code'])
             # price
-            response += ("price: " + ticket['offerItems'][0]['price']['total'])
+            response += ("\nprice: " + ticket['offerItems'][0]['price']['total'])
             response += ("\n")
         return response
     except:
