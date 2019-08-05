@@ -18,7 +18,7 @@ pip install rasa-nlu
 pip install amadeus
 ```
 
-The 'duckling' can be ran from docker
+The `duckling` can be ran from docker
 ```
 docker run -p 8000:8000 rasa/duckling
 ```

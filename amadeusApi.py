@@ -22,7 +22,22 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
                         destination=dest,
                         departureDate=departDate,
                         nonStop=flightStop,
-                        travelClass=classTpye
+                        travelClass=classTpye,
+                        max=2
                     )
+        offers = response.data
+        response = ""
+        for idx, ticket in enumerate(offers):
+            response = "ticket:" + str(idx + 1)
+            for i, segment in enumerate(ticket['offerItems'][0]['services'][0]['segments']):
+                response = response + "segment:" + str(i + 1)
+                response += ("departure: " + segment['flightSegment']['departure']['iataCode'] + " at " + segment['flightSegment']['departure']['at'])
+                response += ("arrival: " + segment['flightSegment']['arrival']['iataCode'] + " at " + segment['flightSegment']['arrival']['at'])
+                response += (segment['flightSegment']['carrierCode'] + segment['flightSegment']['number'])
+                response += ("Aircraft: " + segment['flightSegment']['aircraft']['code'])
+            # price
+            response += ("price: " + ticket['offerItems'][0]['price']['total'])
+            response += ("\n")
+        return response
     except:
         return "Sorry, no available flight found..."
