@@ -34,7 +34,8 @@ def error(bot, update, error):
 def main():
     """Start the bot."""
     # Create the EventHandler and pass it your bot's token.
-    updater = Updater("961802444:AAHcW7PT0QakR4g6CEJmX_r4pmuoAacxCGg", request_kwargs={'proxy_url': 'http://127.0.0.1:1087/'})
+    #updater = Updater("961802444:AAHcW7PT0QakR4g6CEJmX_r4pmuoAacxCGg", request_kwargs={'proxy_url': 'http://127.0.0.1:1087/'})
+    updater = Updater("961802444:AAHcW7PT0QakR4g6CEJmX_r4pmuoAacxCGg")
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher

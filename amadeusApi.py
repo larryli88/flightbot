@@ -9,4 +9,15 @@ amadeus = Client(
 
 def checkinLinks(code):
     response = amadeus.reference_data.urls.checkin_links.get(airlineCode=code)
-    return response.data[0]['href']
+    if not response.data:
+        return "Sorry, this is an invalid IATA airline code, please try again"
+    else:
+        return "the check in link is {}\n Any other airline's check in website do you want?".format(response.data[0]['href'])
+
+def flightOffers(org, dest, departDate, nonStop):
+    response = amadeus.shopping.flight_offers.get(
+                    origin=org,
+                    destination=dest,
+                    departureDate='2019-08-05'
+                )
+    

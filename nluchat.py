@@ -15,6 +15,7 @@ CHOOSE_ORG = 1
 CHOOSE_DEST = 2
 CHECKIN_LINK = 3
 CHECKIN_LINK_CHOOSE = 4
+FLIGHT_FROM_LOC = 5
 
 # global params
 params_global = {}
@@ -29,7 +30,7 @@ def confusing(params, msg, state):
 def setCheckinAir(params, msg, state):
     matchObj = re.search(r'\b[A-Za-z0-9]{2}\b', msg)
     if not matchObj:
-        return CHECKIN_LINK_CHOOSE, {}, "Sorry, this is an invalid IATA airline code"
+        return CHECKIN_LINK_CHOOSE, {}, "Sorry, this is an invalid IATA airline code, please try again"
     else:
         params['airline_code'] = matchObj.group()
     return getCheckin(params, msg, state)
@@ -39,9 +40,20 @@ def getCheckin(params, msg, state):
         response = "Ok, which airline are you checknig in with? Tell me its IATA code"
         return CHECKIN_LINK_CHOOSE, {}, response
     
-    response = "the check in link is {}\n Any other airline's check in website do you want?".format(checkinLinks(params['airline_code']))
+    response = checkinLinks(params['airline_code'])
     # the search is completed, reset state and params
     return CHECKIN_LINK_CHOOSE, {}, response
+
+def getFlight(params, msg, state):
+    if params.get('class_type') == None:
+        params['class_type'] = "ECONOMY"
+    if params.get('fromloc.iata') == None:
+        response = "Ok, where are you flying from?"
+        return FLIGHT_FROM_LOC, params, response
+    if params.get('toloc.iata') == None:
+        response = "Where are you flying to?"
+        return FLIGHT_TO_LOC, params, response
+    
 
 def backToInit(params, msg, state):
     return INIT, {}, "Thanks for using Flight Bot~"
@@ -51,6 +63,7 @@ policy = {
     (INIT, "greet"): greeting,
     (INIT, "default"): confusing,
     (INIT, "checkin_link"): getCheckin,
+    (INIT, "flight"): getFlight,
     (CHECKIN_LINK, "default"): getCheckin,
     (CHECKIN_LINK_CHOOSE, "decline"): backToInit,
     (CHECKIN_LINK_CHOOSE, "default"): setCheckinAir

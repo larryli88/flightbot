@@ -1,3 +1,14 @@
 language: "en"
 
-pipeline: "supervised_embeddings"
+pipeline:
+- name: "WhitespaceTokenizer"
+- name: "RegexFeaturizer"
+- name: "CRFEntityExtractor"
+- name: "EntitySynonymMapper"
+- name: "CountVectorsFeaturizer"
+- name: "EmbeddingIntentClassifier"
+- name: "DucklingHTTPExtractor"
+  # url of the running duckling server
+  url: "http://localhost:8000"
+  # dimensions to extract
+  dimensions: ["time"]
