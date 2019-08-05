@@ -6,6 +6,7 @@ from rasa_nlu import config
 
 import time
 import re
+import json
 
 from amadeusApi import checkinLinks
 from amadeusApi import flightOffers
@@ -139,7 +140,7 @@ def send_message(message, state, params):
     if policy.get((state, intent)) == None:
         intent = 'default'
     new_state, params, response = policy[(state, intent)](params, message, state)
-    
+    print("------params------\n" + json.dumps(params)  + "\n")
     print("BOT : {}".format(response))
     return new_state, params, response
 
@@ -159,8 +160,7 @@ def send_messages(messages):
 # Send the messages
 send_messages([
     "what can you do for me?",
-    "i want to check in",
-    "British Airline"
+    "i want to find a flight to JFK",
     #"i want to check in with united"
 ])
 # Debug
