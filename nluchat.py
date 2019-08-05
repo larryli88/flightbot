@@ -99,7 +99,7 @@ def getFlight(params, msg, state):
     else:
         params['depart_date'] = params['time'][:10]
     print(params)
-    return FLIGHT_OFFER, {}, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'], params['class_type']) + "Do you want to find any other flight?"
+    return FLIGHT_OFFER, params, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'], params['class_type']) + "Tell me if you want to change stop/nonstop or date"
     # default is no return flight
 
     
