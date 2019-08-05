@@ -28,7 +28,7 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
         offers = response.data
         response = ""
         for idx, ticket in enumerate(offers):
-            response = "ticket:" + str(idx + 1)
+            response += ("ticket:" + str(idx + 1))
             for i, segment in enumerate(ticket['offerItems'][0]['services'][0]['segments']):
                 response = response + "segment:" + str(i + 1)
                 response += ("departure: " + segment['flightSegment']['departure']['iataCode'] + " at " + segment['flightSegment']['departure']['at'])
