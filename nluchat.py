@@ -51,7 +51,7 @@ def getCheckin(params, msg, state):
 def setFlightOrg(params, msg, state):
     matchObj = re.search(r'\b[A-Z]{3}\b', msg)
     if not matchObj:
-        return CHECKIN_LINK_CHOOSE, {}, "Sorry, this is an invalid IATA airport code, please try again"
+        return FLIGHT_OFFER_ORG, params, "Sorry, this is an invalid IATA airport code, please try again"
     else:
         params['fromloc_iata'] = matchObj.group()
     return getFlight(params, msg, state)
@@ -59,7 +59,7 @@ def setFlightOrg(params, msg, state):
 def setFlightDest(params, msg, state):
     matchObj = re.search(r'\b[A-Z]{3}\b', msg)
     if not matchObj:
-        return CHECKIN_LINK_CHOOSE, {}, "Sorry, this is an invalid IATA airport code, please try again"
+        return FLIGHT_OFFER_DEST, params, "Sorry, this is an invalid IATA airport code, please try again"
     else:
         params['toloc_iata'] = matchObj.group()
     return getFlight(params, msg, state)
@@ -98,7 +98,7 @@ def getFlight(params, msg, state):
     else:
         params['depart_date'] = params['time'][:10]
     print(params)
-    return FLIGHT_OFFER, {}, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'])
+    return FLIGHT_OFFER, {}, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'], params['class_type'])
     # default is no return flight
 
     

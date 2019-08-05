@@ -15,12 +15,13 @@ def checkinLinks(code):
     else:
         return "the check in link is {}\n Any other airline's check in website do you want?".format(response.data[0]['href'])
 
-def flightOffers(org, dest, departDate, flightStop):
+def flightOffers(org, dest, departDate, flightStop, classTpye):
     response = amadeus.shopping.flight_offers.get(
                     origin=org,
                     destination=dest,
                     departureDate=departDate,
-                    nonStop=flightStop
+                    nonStop=flightStop,
+                    travelClass=classTpye
                 )
     if not response.data:
         return "Sorry, this is an invalid IATA airline code, please try again"
