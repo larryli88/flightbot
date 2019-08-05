@@ -71,18 +71,19 @@ def setFlightDep(params, msg, state):
 
 def getFlight(params, msg, state):
     # set the class type
-    if "premium economy" in msg:
-        params['class_type'] = "PREMIUM_ECONOMY"
-    elif "business" in msg:
-        params['class_type'] = "BUSINESS"
-    elif "first class" in msg:
-        params['class_type'] = "FIRST"
-    else:
-        params['class_type'] = "ECONOMY"
-    # get org iata
-    if params.get('fromloc.iata') == None:
-        response = "Ok, where are you flying from?"
-        return FLIGHT_OFFER_ORG, params, response
+    if params.get('class_type') == None:
+        if "premium economy" in msg:
+            params['class_type'] = "PREMIUM_ECONOMY"
+        elif "business" in msg:
+            params['class_type'] = "BUSINESS"
+        elif "first class" in msg:
+            params['class_type'] = "FIRST"
+        else:
+            params['class_type'] = "ECONOMY"
+        # get org iata
+        if params.get('fromloc.iata') == None:
+            response = "Ok, where are you flying from?"
+            return FLIGHT_OFFER_ORG, params, response
     # get dest iata
     if params.get('toloc.iata') == None:
         response = "Where are you flying to?"
