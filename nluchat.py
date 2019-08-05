@@ -26,7 +26,7 @@ params_global = {}
 state_global = INIT
 
 def greeting(params, msg, state):
-    return INIT, params, "Hi, this is flight bot~"
+    return INIT, params, "Hi, this is flight bot~\nI can help you to search for the best deal and help you check in."
 
 def confusing(params, msg, state):
     return state, params, "Sorry, I don't get what you said...:("
@@ -98,7 +98,7 @@ def getFlight(params, msg, state):
     else:
         params['depart_date'] = params['time'][:10]
     print(params)
-    return FLIGHT_OFFER, {}, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'], params['class_type'])
+    return FLIGHT_OFFER, {}, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'], params['class_type']) + "Do you want to find any other flight?"
     # default is no return flight
 
     
