@@ -87,7 +87,7 @@ def getFlight(params, msg, state):
         response = "Where are you flying to?"
         return FLIGHT_OFFER_DEST, params, response
     # non stop?
-    if params.get('flight_stop') == None or params['flight_stop'] != "nonstop":
+    if params.get('flight_stop') == None or (params['flight_stop'] != "nonstop" and not params['flight_stop']):
         params['flight_stop'] = False
     else:
         params['flight_stop'] = True
