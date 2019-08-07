@@ -10,12 +10,14 @@ The program is written in Python 3.7. Prerequisites are listed below.
 * rasa-sdk                  1.1.0
 * amadeus                   3.1.0
 * duckling                  latest version from docker
+* python-telegram-bot       11.1.0
 
 You can install rasa and amadeus with pip
 ```
 pip install rasa
 pip install rasa-nlu
 pip install amadeus
+pip install python-telegram-bot
 ```
 
 The `duckling` can be ran from docker
@@ -27,9 +29,12 @@ Or you can [install duckling directly on your machine](https://github.com/facebo
 ### Training model
 Before using the flight bot, you need to train the model first. The training is done by `train.py` and it will save the trained model to `./model`
 
+### Demo
+Search for @Larry88Bot on Telegram to see a demo.
 
 ## Built With
 * [Rasa](https://rasa.com) - The natural language understanding framework used
+* [Python Telegram Bot 11.1.-](https://python-telegram-bot.org/) - The wrapper used to access Telegram bot Api
 
 ## Author
 * **Larry Li**
