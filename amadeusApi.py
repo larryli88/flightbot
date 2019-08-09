@@ -42,7 +42,7 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
             response += "Arrive at {} - {}\n".format(arr, arrTime)
             response += "*{}*\n".format(flightNum)
             response += "Duration: {}\n".format(duration)
-            response += "Aircraft: {}\n".format(aircraft)
+            response += "Aircraft: {}\n\n".format(aircraft)
         return response
         '''
         for idx, ticket in enumerate(offers):
