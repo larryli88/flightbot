@@ -114,14 +114,20 @@ policy = {
     (INIT, "default"): confusing,
     (INIT, "checkin_link"): getCheckin,
     (INIT, "flight"): getFlight,
+    (INIT, "terminate"): backToInit,
     (CHECKIN_LINK, "default"): getCheckin,
+    (CHECKIN_LINK, "terminate"): backToInit,
     (CHECKIN_LINK_CHOOSE, "decline"): backToInit,
     (CHECKIN_LINK_CHOOSE, "default"): setCheckinAir,
     (FLIGHT_OFFER, "default"): getFlight,
+    (FLIGHT_OFFER, "terminate"): backToInit,
+    (FLIGHT_OFFER, "decline"): backToInit,
     (FLIGHT_OFFER_ORG, "default"): setFlightOrg,
+    (FLIGHT_OFFER_ORG, "terminate"): backToInit,
     (FLIGHT_OFFER_DEST, "default"): setFlightDest,
+    (FLIGHT_OFFER_DEST, "terminate"): backToInit,
     (FLIGHT_OFFER_DEP_DATE, "default"): setFlightDep,
-    (FLIGHT_OFFER, "decline"): backToInit
+    (FLIGHT_OFFER_DEP_DATE, "terminate"): backToInit
 }
 
 

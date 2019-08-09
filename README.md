@@ -34,7 +34,7 @@ Search for @Larry88Bot on Telegram to see a demo.
 
 ## Built With
 * [Rasa](https://rasa.com) - The natural language understanding framework used
-* [Python Telegram Bot 11.1.-](https://python-telegram-bot.org/) - The wrapper used to access Telegram bot Api
+* [Python Telegram Bot 11.1.0](https://python-telegram-bot.org/) - The wrapper used to access Telegram bot Api
 
 ## Author
 * **Larry Li**
