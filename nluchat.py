@@ -154,7 +154,7 @@ def send_message(message, state, params):
 # load the trained model
 interpreter = Interpreter.load('./model/default/model_20190805-111626')
 
-"""
+
 # Debug
 # Define send_messages()
 def send_messages(messages):
@@ -166,9 +166,9 @@ def send_messages(messages):
 
 # Send the messages
 send_messages([
-    "what can you do for me?",
-    "i want to find a flight to JFK",
+    "I want to find a flight from DTW to ORD nonstop tomorrow",
+    #"i want to find a flight to JFK",
     #"i want to check in with united"
 ])
 # Debug
-"""
+

@@ -26,7 +26,12 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
                         max=2
                     )
         offers = response.data
-        response = ""
+        price = offers[0]['offerItems'][0]['price']['total']
+        depTime = offers[0]['offerItems'][0]['services'][0]['segments'][0]['flightSegment']['departure']['at'][11:16]
+        response = "*Flight from {} to {} - ${}*\n".format(org, dest, price) + \
+                   "Departure at {} ({})\n".format(depTime, departDate)
+        return response
+        '''
         for idx, ticket in enumerate(offers):
             response += ("ticket:" + str(idx + 1))
             for i, segment in enumerate(ticket['offerItems'][0]['services'][0]['segments']):
@@ -39,5 +44,6 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
             response += ("\nprice: " + ticket['offerItems'][0]['price']['total'])
             response += ("\n")
         return response
+    '''
     except:
         return "Sorry, no available flight found..."

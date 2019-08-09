@@ -3,6 +3,7 @@
 import nluchat
 from nluchat import send_message
 
+from telegram import ParseMode
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 
@@ -25,7 +26,7 @@ def respond(bot, update):
     """respond the user message."""
     # Initialize params dictionary
     nluchat.state_global, nluchat.params_global, response = send_message(update.message.text, nluchat.state_global, nluchat.params_global)
-    update.message.reply_text(response)
+    update.message.reply_text(text=response, parse_mode=telegram.ParseMode.MARKDOWN)
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
