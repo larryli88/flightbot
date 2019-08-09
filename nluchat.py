@@ -69,6 +69,9 @@ def setFlightDep(params, msg, state):
     params['depart_date'] = params['time'][:10]
     return getFlight(params, msg, state)
 
+def inquire(params, msg, state):
+    return FLIGHT_OFFER_ORG, params, "Yes, but you need to tell me where are you flying from first"
+
 def getFlight(params, msg, state):
     # set the class type
     if params.get('class_type') == None:
@@ -111,6 +114,7 @@ def backToInit(params, msg, state):
 # Define the policy rules
 policy = {
     (INIT, "greet"): greeting,
+    (INIT, "inquiry"): inquire,
     (INIT, "default"): confusing,
     (INIT, "checkin_link"): getCheckin,
     (INIT, "flight"): getFlight,
