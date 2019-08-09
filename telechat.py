@@ -16,17 +16,17 @@ logger = logging.getLogger(__name__)
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(bot, update):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi! This is Flight Bot. \nYou can search by flight number or search by destination and origin~')
+    update.message.reply_text('Hi, this is flight bot~\nI can help you to search for the best deal and help you check in.')
 
 def help(bot, update):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+    update.message.reply_text('Hi, this is flight bot~\nI can help you to search for the best deal and help you check in.')
 
 def respond(bot, update):
     """respond the user message."""
     # Initialize params dictionary
     nluchat.state_global, nluchat.params_global, response = send_message(update.message.text, nluchat.state_global, nluchat.params_global)
-    update.message.reply_text(text=response, parse_mode=ParseMode.MARKDOWN)
+    update.message.reply_text(text=response, parse_mode=ParseMode.HTML)
 
 def error(bot, update, error):
     """Log Errors caused by Updates."""
@@ -35,6 +35,7 @@ def error(bot, update, error):
 def main():
     """Start the bot."""
     # Create the EventHandler and pass it your bot's token.
+    # request_kwargs to use socks 5 proxy
     #updater = Updater("961802444:AAHcW7PT0QakR4g6CEJmX_r4pmuoAacxCGg", request_kwargs={'proxy_url': 'http://127.0.0.1:1087/'})
     updater = Updater("961802444:AAHcW7PT0QakR4g6CEJmX_r4pmuoAacxCGg")
 

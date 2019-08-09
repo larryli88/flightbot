@@ -100,8 +100,7 @@ def getFlight(params, msg, state):
     else:
         params['depart_date'] = params['time'][:10]
     print(params)
-    return FLIGHT_OFFER, params, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'], params['class_type']) + \
-            "**Tell me if you want to change date**"
+    return FLIGHT_OFFER, params, flightOffers(params['fromloc.iata'], params['toloc.iata'], params['depart_date'], params['flight_stop'], params['class_type'])
     # default is no return flight
 
     
@@ -153,9 +152,9 @@ def send_message(message, state, params):
     return new_state, params, response
 
 # load the trained model
-interpreter = Interpreter.load('./model/default/model_20190805-111626')
+interpreter = Interpreter.load('./model/default/model_20190810-000430')
 
-
+'''
 # Debug
 # Define send_messages()
 def send_messages(messages):
@@ -172,4 +171,4 @@ send_messages([
     #"i want to check in with united"
 ])
 # Debug
-
+'''

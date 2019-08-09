@@ -13,7 +13,7 @@ def checkinLinks(code):
     if not response.data:
         return "Sorry, this is an invalid IATA airline code, please try again"
     else:
-        return "the check in link is {}\n Any other airline's check in website do you want?".format(response.data[0]['href'])
+        return "the check in link is {}\n Do you want any other airline's check in link?".format(response.data[0]['href'])
 
 def flightOffers(org, dest, departDate, flightStop, classTpye):
     try:
@@ -28,7 +28,7 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
         offers = response.data
         price = offers[0]['offerItems'][0]['price']['total']
         depTime = offers[0]['offerItems'][0]['services'][0]['segments'][0]['flightSegment']['departure']['at'][11:16]
-        response = "*Flight from {} to {} - ${}*\n".format(org, dest, price)
+        response = "<b>Flight from {} to {} - ${}</b>\n\n".format(org, dest, price)
         for segment in offers[0]['offerItems'][0]['services'][0]['segments']:
             dep = segment['flightSegment']['departure']['iataCode']
             arr = segment['flightSegment']['arrival']['iataCode']
@@ -40,7 +40,7 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
             duration = segment['flightSegment']['duration'][3:]
             response += "Depart from {} - {} ({})\n".format(dep, depTime, depDate)
             response += "Arrive at {} - {}\n".format(arr, arrTime)
-            response += "*{}*\n".format(flightNum)
+            response += "<b>{}</b>\n".format(flightNum)
             response += "Duration: {}\n".format(duration)
             response += "Aircraft: {}\n\n".format(aircraft)
         return response
