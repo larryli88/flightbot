@@ -28,8 +28,21 @@ def flightOffers(org, dest, departDate, flightStop, classTpye):
         offers = response.data
         price = offers[0]['offerItems'][0]['price']['total']
         depTime = offers[0]['offerItems'][0]['services'][0]['segments'][0]['flightSegment']['departure']['at'][11:16]
-        response = "*Flight from {} to {} - ${}*\n".format(org, dest, price) + \
-                   "Departure at {} ({})\n".format(depTime, departDate)
+        response = "*Flight from {} to {} - ${}*\n".format(org, dest, price)
+        for segment in offers[0]['offerItems'][0]['services'][0]['segments']:
+            dep = segment['flightSegment']['departure']['iataCode']
+            arr = segment['flightSegment']['arrival']['iataCode']
+            depTime = segment['flightSegment']['departure']['at'][11:16]
+            depDate = segment['flightSegment']['departure']['at'][5:10]
+            arrTime = segment['flightSegment']['arrival']['at'][11:16]
+            flightNum = segment['flightSegment']['carrierCode'] + segment['flightSegment']['number']
+            aircraft = segment['flightSegment']['aircraft']['code']
+            duration = segment['flightSegment']['duration'][3:]
+            response += "Depart from {} - {} ({})\n".format(dep, depTime, depDate)
+            response += "Arrive at {} - {}\n".format(arr, arrTime)
+            response += "*{}*\n".format(flightNum)
+            response += "Duration: {}\n".format(duration)
+            response += "Aircraft: {}\n".format(aircraft)
         return response
         '''
         for idx, ticket in enumerate(offers):
