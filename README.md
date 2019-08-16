@@ -51,6 +51,8 @@ python telechat.py
 ## Built With
 * [Rasa](https://rasa.com) - The natural language understanding framework used
 * [Python Telegram Bot 11.1.0](https://python-telegram-bot.org/) - The wrapper used to access Telegram bot Api
+* [Duckling](https://duckling.wit.ai) - The linguist that parses text into structured data
+* [Amadeus for developer](https://github.com/amadeus4dev/amadeus-python) - Flight offer searching API by Amadeus
 
 ## Author
 * **Larry Li**
