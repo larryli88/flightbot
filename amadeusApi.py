@@ -13,7 +13,7 @@ def checkinLinks(code):
     if not response.data:
         return "Sorry, this is an invalid IATA airline code, please try again"
     else:
-        return "the check in link is {}\n Do you want any other airline's check in link?".format(response.data[0]['href'])
+        return "The check in link is: {}\n Do you want any other airline's check in link?".format(response.data[0]['href'])
 
 def flightOffers(org, dest, departDate, flightStop, classTpye):
     try:

@@ -32,6 +32,22 @@ Before using the flight bot, you need to train the model first. The training is 
 ### Demo
 Search for @Larry88Bot on Telegram to see a demo.
 
+## Usage
+Clone the repository and make sure you've installed all dependencies. Start a `duckling` 
+server.
+```
+docker run -p 8000:8000 rasa/duckling
+```
+Run the model training
+```
+python train.py
+```
+Trained model is saved to `./model`
+Change the telegram bot API and Amadeus API key. Start running `telechat.py`
+```
+python telechat.py
+```
+
 ## Built With
 * [Rasa](https://rasa.com) - The natural language understanding framework used
 * [Python Telegram Bot 11.1.0](https://python-telegram-bot.org/) - The wrapper used to access Telegram bot Api
